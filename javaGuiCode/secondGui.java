@@ -166,12 +166,10 @@ public class secondGui extends JFrame {
             if(e.getStateChange() == 1)
             {
               confTableFlag = true;
-              System.out.println(confTableFlag);
             }
             if(e.getStateChange() != 1)
             {
               confTableFlag = false;
-              System.out.println(confTableFlag);
             }
          }
       });
