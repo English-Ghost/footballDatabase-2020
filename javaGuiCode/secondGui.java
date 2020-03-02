@@ -44,6 +44,7 @@ public class secondGui extends JFrame {
   static JPanel userEntryPan = new JPanel();
   static JLabel dropBoxLabel = new JLabel();
   static JComboBox<String> baseTable = new JComboBox<String>(tableNames);
+  static String baseTableOption = tableNames[0];
   static JPanel joinPan = new JPanel();
   static JLabel checkBoxLabel = new JLabel();
   static JCheckBox confTableCheck = new JCheckBox(tableNames[0]);
@@ -93,6 +94,7 @@ public class secondGui extends JFrame {
   static JTextField searchText = new JTextField(30);
   static JLabel searchLabel2 = new JLabel();
   static JComboBox<String> constraintBox = new JComboBox<String>(tableConstraints);
+  static String constraintBoxOption = tableConstraints[0];
   static JPanel requestPan = new JPanel();
   static JButton requestButton = new JButton();
   static JPanel dataRespPan = new JPanel();
@@ -137,6 +139,11 @@ public class secondGui extends JFrame {
 
     // drop box selection for base table
     baseTable.setSelectedIndex(0);
+    baseTable.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        baseTableOption = (String)baseTable.getSelectedItem();
+      }
+    });
     panelVals.gridx = 1;
     panelVals.gridy = 0;
     userEntryPan.add(baseTable, panelVals);
@@ -541,6 +548,11 @@ public class secondGui extends JFrame {
 
     // drop down box of constraints
     constraintBox.setSelectedIndex(0);
+    constraintBox.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        constraintBoxOption = (String)constraintBox.getSelectedItem();
+      }
+    });
     panelVals.gridx = 1;
     panelVals.gridx = 1;
     searchPan.add(constraintBox, panelVals);
