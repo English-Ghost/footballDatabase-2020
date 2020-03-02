@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 
 public class secondGui extends JFrame {
 
+  // all JFframe variables and other vraibles
   static JFrame choiceFrame;
   static String[] tableNames = {
                                 "conferences",
@@ -98,14 +99,18 @@ public class secondGui extends JFrame {
   static JTextArea serverRespText = new JTextArea();
   static JButton sendToFileBut = new JButton();
 
+
+  // creates the popup for the database window
   protected static void popupDatabaseWindow()
   {
 
+    // Frame creation and layout
     choiceFrame = new JFrame("Database window");
     GridBagLayout gridLayout = new GridBagLayout();
     choiceFrame.getContentPane().setBackground(new Color(0,0,0));
     choiceFrame.getContentPane().setLayout(gridLayout);
 
+    // layout design of frame
     GridBagConstraints frameVals = new GridBagConstraints();
     frameVals.fill = GridBagConstraints.HORIZONTAL;
     frameVals.anchor = GridBagConstraints.WEST;
@@ -114,36 +119,41 @@ public class secondGui extends JFrame {
     frameVals.ipady = 10;
     frameVals.weightx = .5;
 
+    // layout design of panels
     GridBagConstraints panelVals = new GridBagConstraints();
     panelVals.anchor = GridBagConstraints.WEST;
     panelVals.gridx = 0;
     panelVals.gridy = 0;
 
 
+    // set layout of first panel
     userEntryPan.setLayout(new GridBagLayout());
 
-
-    dropBoxLabel.setText("Please enter a base tabel to work with: ");
+    // drop box label for the base table
+    dropBoxLabel.setText("Please enter a base table to work with: ");
     panelVals.gridx = 0;
     panelVals.gridy = 0;
     userEntryPan.add(dropBoxLabel, panelVals);
 
-
+    // drop box selection for base table
     baseTable.setSelectedIndex(0);
     panelVals.gridx = 1;
     panelVals.gridy = 0;
     userEntryPan.add(baseTable, panelVals);
 
+    // input the first panel
     choiceFrame.add(userEntryPan, frameVals);
 
-
+    // set layout of the second panel
     joinPan.setLayout(new GridBagLayout());
 
+    // check box labels
     checkBoxLabel.setText("Please Choose which tables to join");
     panelVals.gridx = 0;
     panelVals.gridy = 0;
     joinPan.add(checkBoxLabel, panelVals);
 
+    // conference table check box items
     confTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
             if(e.getStateChange() == 1)
@@ -162,6 +172,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 1;
     joinPan.add(confTableCheck, panelVals);
 
+    // drive table check box items
     driveTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -178,6 +189,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 1;
     joinPan.add(driveTableCheck, panelVals);
 
+    // foreigner table check box items
     foreTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -194,6 +206,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 1;
     joinPan.add(foreTableCheck, panelVals);
 
+    // game table check box items
     gameTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -210,6 +223,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 1;
     joinPan.add(gameTableCheck, panelVals);
 
+    // game statistic check box items
     gamestatTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -226,6 +240,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 1;
     joinPan.add(gamestatTableCheck, panelVals);
 
+    // kickoff table check box items
     koTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -242,6 +257,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 2;
     joinPan.add(koTableCheck, panelVals);
 
+    // kickoff return check box items
     korTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -258,6 +274,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 2;
     joinPan.add(korTableCheck, panelVals);
 
+    // pass table check box items
     passTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -274,6 +291,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 2;
     joinPan.add(passTableCheck, panelVals);
 
+    // play table check box items
     playTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -290,6 +308,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 2;
     joinPan.add(playTableCheck, panelVals);
 
+    // player table check box items
     playerTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -306,6 +325,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 2;
     joinPan.add(playerTableCheck, panelVals);
 
+    // player game statistics table check box items
     pgsTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -322,6 +342,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 3;
     joinPan.add(pgsTableCheck, panelVals);
 
+    // player statistics table check box items
     psTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -338,6 +359,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 3;
     joinPan.add(psTableCheck, panelVals);
 
+    // punt table punt check box items
     puntTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -354,6 +376,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 3;
     joinPan.add(puntTableCheck, panelVals);
 
+    // punt return table check box items
     prTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -370,6 +393,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 3;
     joinPan.add(prTableCheck, panelVals);
 
+    // reception table check box items
     recepTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -386,6 +410,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 3;
     joinPan.add(recepTableCheck, panelVals);
 
+    // rush table check box items
     rushTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -402,6 +427,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 4;
     joinPan.add(rushTableCheck, panelVals);
 
+    // stadium check box items
     stadTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -418,6 +444,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 4;
     joinPan.add(stadTableCheck, panelVals);
 
+    // team table check box items
     teamTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -434,6 +461,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 4;
     joinPan.add(teamTableCheck, panelVals);
 
+    // team game statistics check box items
     tgsTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -450,6 +478,7 @@ public class secondGui extends JFrame {
     panelVals.gridy = 4;
     joinPan.add(tgsTableCheck, panelVals);
 
+    // all table check box items
     allTableCheck.addItemListener(new ItemListener() {
          public void itemStateChanged(ItemEvent e) {
            if(e.getStateChange() == 1)
@@ -466,11 +495,14 @@ public class secondGui extends JFrame {
     panelVals.gridy = 4;
     joinPan.add(allTableCheck, panelVals);
 
+    // add the second panel to the frame
     frameVals.gridy = 1;
     choiceFrame.add(joinPan, frameVals);
 
+    // table panel set up
     tablePan.setLayout(new GridBagLayout());
 
+    // button for creation of join table
     createTableBut.setText("<html>CREATE<br>TABLE</html>");
     createTableBut.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -482,36 +514,45 @@ public class secondGui extends JFrame {
     panelVals.gridy = 0;
     tablePan.add(createTableBut,panelVals);
 
+    // adds the thrid panel to the frame
     frameVals.gridy = 2;
     choiceFrame.add(tablePan, frameVals);
 
+    // search panel set up
     searchPan.setLayout(new GridBagLayout());
 
+    // label for the search bar
     searchLabel.setText("What are you searching for?");
     panelVals.gridx = 0;
     panelVals.gridy = 0;
     searchPan.add(searchLabel, panelVals);
 
+    // empty text box next to search bar
     searchText.setText("");
     panelVals.gridx = 1;
     panelVals.gridy = 0;
     searchPan.add(searchText, panelVals);
 
+    // label for drop down box of constraints
     searchLabel2.setText("Add constraints for Search: ");
     panelVals.gridx = 0;
     panelVals.gridy = 1;
     searchPan.add(searchLabel2, panelVals);
 
+    // drop down box of constraints
     constraintBox.setSelectedIndex(0);
     panelVals.gridx = 1;
     panelVals.gridx = 1;
     searchPan.add(constraintBox, panelVals);
 
+    // add the fourth panel to the frame
     frameVals.gridy = 3;
     choiceFrame.add(searchPan, frameVals);
 
+    // request panel set up
     requestPan.setLayout(new GridBagLayout());
 
+    // button used for requesting data from database
     requestButton.setText("Request From Database");
     requestButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -523,19 +564,22 @@ public class secondGui extends JFrame {
     panelVals.gridy = 0;
     requestPan.add(requestButton, panelVals);
 
+    // add the fifth panel to the frame
     frameVals.gridy = 4;
     choiceFrame.add(requestPan, frameVals);
 
+    // data response panel set up
     dataRespPan.setLayout(new GridBagLayout());
 
+    // data response area, where the output is
     serverRespText.append(serverResponse);
     serverRespText.setRows(4);
     serverRespText.setColumns(30);
     panelVals.gridx = 0;
     panelVals.gridy = 0;
-
     dataRespPan.add(serverRespText, panelVals);
 
+    // button to send output to a file
     sendToFileBut.setText("<html> SEND <br> TO <br> FILE </html>");
     sendToFileBut.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -547,10 +591,11 @@ public class secondGui extends JFrame {
     panelVals.gridy = 0;
     dataRespPan.add(sendToFileBut, panelVals);
 
+    // add sixth panel to the frame
     frameVals.gridy = 5;
     choiceFrame.add(dataRespPan, frameVals);
 
-
+    // pack frame and complete
     choiceFrame.setSize(900,600);
     choiceFrame.pack();
     choiceFrame.setVisible(true);
