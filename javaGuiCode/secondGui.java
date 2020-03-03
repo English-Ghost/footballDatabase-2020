@@ -101,6 +101,84 @@ public class secondGui extends JFrame {
   static JTextArea serverRespText = new JTextArea();
   static JButton sendToFileBut = new JButton();
 
+  static JFrame loginFrame;
+
+  protected static void popupLogin()
+  {
+    loginFrame = new JFrame("LOGIN");
+    GridBagLayout gridLayout = new GridBagLayout();
+    loginFrame.getContentPane().setBackground(new Color(0,0,0));
+    loginFrame.getContentPane().setLayout(gridLayout);
+
+    GridBagConstraints frameVals = new GridBagConstraints();
+    frameVals.fill = GridBagConstraints.HORIZONTAL;
+    frameVals.anchor = GridBagConstraints.WEST;
+    frameVals.gridx = 0;
+    frameVals.gridy = 0;
+    frameVals.ipady = 10;
+    frameVals.weightx = .5;
+
+    GridBagConstraints panelVals = new GridBagConstraints();
+    panelVals.anchor = GridBagConstraints.WEST;
+    panelVals.gridx = 0;
+    panelVals.gridy = 0;
+
+    JPanel loginPanel = new JPanel();
+    loginPanel.setLayout(new GridBagLayout());
+
+    JLabel databaseLabel = new JLabel();
+    databaseLabel.setText("DATABASE: ");
+    panelVals.gridx = 0;
+    panelVals.gridy = 0;
+    loginPanel.add(databaseLabel, panelVals);
+
+    JTextField databaseBar = new JTextField(30);
+    databaseBar.setText("");
+    panelVals.gridx = 1;
+    panelVals.gridy = 0;
+    loginPanel.add(databaseBar, panelVals);
+
+    JLabel usernameLabel = new JLabel();
+    usernameLabel.setText("USERNAME: ");
+    panelVals.gridx = 0;
+    panelVals.gridy = 1;
+    loginPanel.add(usernameLabel, panelVals);
+
+    JTextField usernameBar = new JTextField(30);
+    usernameBar.setText("");
+    panelVals.gridx = 1;
+    panelVals.gridy = 1;
+    loginPanel.add(usernameBar, panelVals);
+
+    JLabel passwordLabel = new JLabel();
+    passwordLabel.setText("PASSWORD: ");
+    panelVals.gridx = 0;
+    panelVals.gridy = 2;
+    loginPanel.add(passwordLabel, panelVals);
+
+    JPasswordField passwordBar = new JPasswordField(30);
+    panelVals.gridx = 1;
+    panelVals.gridy = 2;
+    loginPanel.add(passwordBar, panelVals);
+
+    JButton connectButton = new JButton();
+    connectButton.setText("CONNECT");
+    connectButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        loginFrame.dispose();
+        popupDatabaseWindow();
+      }
+    });
+    panelVals.gridx = 1;
+    panelVals.gridy = 3;
+    loginPanel.add(connectButton, panelVals);
+
+    loginFrame.add(loginPanel, frameVals);
+
+    loginFrame.pack();
+    loginFrame.setVisible(true);
+
+  }
 
   // creates the popup for the database window
   protected static void popupDatabaseWindow()
@@ -614,6 +692,6 @@ public class secondGui extends JFrame {
 
   public static void main(String[] args)
   {
-    popupDatabaseWindow();
+    popupLogin();
   }
 }
