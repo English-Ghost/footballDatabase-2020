@@ -97,6 +97,7 @@ public class secondGui extends JFrame {
   static String constraintBoxOption = tableConstraints[0];
   static JPanel requestPan = new JPanel();
   static JButton requestButton = new JButton();
+  static JButton resetButton = new JButton();
   static JPanel dataRespPan = new JPanel();
   static JTextArea serverRespText = new JTextArea();
   static JButton sendToFileBut = new JButton();
@@ -651,6 +652,17 @@ public class secondGui extends JFrame {
     panelVals.gridx = 0;
     panelVals.gridy = 0;
     requestPan.add(requestButton, panelVals);
+
+    resetButton.setText("Reset");
+    resetButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        serverResponse = "request button hit";
+        serverRespText.setText(serverResponse);
+      }
+    });
+    panelVals.gridx = 1;
+    panelVals.gridy = 0;
+    requestPan.add(resetButton, panelVals);
 
     // add the fifth panel to the frame
     frameVals.gridy = 4;
