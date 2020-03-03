@@ -2,14 +2,12 @@ import java.sql.*;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.awt.*;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.*;
-
-
-
-
 public class secondGui extends JFrame {
 
   // all JFframe variables and other vraibles
@@ -118,12 +116,14 @@ public class secondGui extends JFrame {
   static Statement stmt = null;
   static String filterTerm  = "";
   static Vector<String> userChoices = new Vector<String>();
+  static Vector<String> joinedColumnNames = new Vector<String>();
+  static int numRows;
 //  static String user = "sunilp";
 //  static String pwd = "127001211";
  
  
  
-  private static void connectDB(String db,String user, char[] pwd) {
+  private static void connectDB(String db,String user, String pwd) {
     try {
        Class.forName("org.postgresql.Driver");
        String temp = new String(pwd);
@@ -218,32 +218,33 @@ e.printStackTrace();
 }
   }
   private static void executeQuery() {
-ResultSet result;
-FROMStmt = "SELECT * FROM " + baseTableOption + " ";
-sqlStatement += WHEREStmt;
-try {
-result = stmt.executeQuery(sqlStatement);
-ResultSetMetaData metadata = result.getMetaData();
-
+		ResultSet result;
+		FROMStmt = "SELECT * FROM " + baseTableOption + " ";
+		sqlStatement += WHEREStmt;
+		try {
+			result = stmt.executeQuery(sqlStatement);
+			ResultSetMetaData metadata = result.getMetaData();
+			
 // PRINT EVERYTHING
 // Adapted from
 // https://stackoverflow.com/questions/24943894/how-do-you-get-values-from-all-columns-using-resultset-getbinarystream-in-jdbc
-int columns = metadata.getColumnCount();
-for (int i = 1; i <= columns; i++) {
-System.out.print(metadata.getColumnName(i) + ", ");
-}
-System.out.println();
-serverResponse = "";
-while (result.next()) {
-for (int i = 1; i <= columns; i++) {
-if(i != columns) {
-serverResponse += result.getString(i) + ", ";
-}
-else {
-serverResponse += result.getString(i) + "\n";
-}
-}
-}
+			int columns = metadata.getColumnCount();
+			for (int i = 1; i <= columns; i++) {
+				joinedColumnNames.add(metadata.getColumnName(i));
+			}
+			System.out.println();
+			serverResponse = "";
+			numRows = 0;
+			while (result.next()) {
+				numRows++;
+				for (int i = 1; i <= columns; i++) {
+					if (i != columns) {
+						serverResponse += result.getString(i) + ", ";
+					} else {
+						serverResponse += result.getString(i) + "\n";
+					}
+				}
+			}
 } catch (SQLException e) {
 // TODO Auto-generated catch block
 e.printStackTrace();
@@ -315,9 +316,10 @@ e.printStackTrace();
     connectButton.setText("CONNECT");
     connectButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-    connectDB(databaseBar.getText(),usernameBar.getText(),passwordBar.getPassword());
-        loginFrame.dispose();
-        popupDatabaseWindow();
+			String pwd = new String(passwordBar.getPassword());
+			connectDB(databaseBar.getText(), usernameBar.getText(), pwd);
+			loginFrame.dispose();
+			popupDatabaseWindow();
       }
     });
     panelVals.gridx = 1;
@@ -907,10 +909,16 @@ e.printStackTrace();
     requestButton.setText("Request From Database");
     requestButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-    filterTerm = searchText.getText();
-    buildWhereStatement(baseTableOption);
-    executeQuery();
-        serverRespText.setText(serverResponse);
+    	  filterTerm = searchText.getText();
+    	  buildWhereStatement(baseTableOption);
+    	  executeQuery();
+    	  if(numRows > 5) {
+    		  serverRespText.setText("Too much data please output to file to see");
+    	  }
+    	  else {
+    		  serverRespText.setText(serverResponse);
+    	  }
+    	  
       }
     });
     panelVals.gridx = 0;
@@ -936,8 +944,21 @@ e.printStackTrace();
     sendToFileBut.setText("<html> SEND <br> TO <br> FILE </html>");
     sendToFileBut.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        serverResponse = "send to file button hit";
-        serverRespText.setText(serverResponse);
+    	  try {
+    	      FileWriter myWriter = new FileWriter("output.csv");
+    	      for(int i = 0;i < joinedColumnNames.size();i++) {
+    	    	  if(i != joinedColumnNames.size()-1) {
+    	    		  myWriter.write(joinedColumnNames.elementAt(i) + ",");
+    	    	  }
+    	    	  else {
+    	    		  myWriter.write(joinedColumnNames.elementAt(i) + "\n");
+    	    	  }
+    	      }
+    	      myWriter.write(serverResponse);
+    	      myWriter.close();
+    	    } catch (IOException e4) {
+    	      e4.printStackTrace();
+    	    }
       }
     });
     panelVals.gridx = 1;
@@ -962,7 +983,7 @@ e.printStackTrace();
 
   public static void main(String[] args)
   {
-popupLogin();
+	  popupLogin();
 
   }
 }
