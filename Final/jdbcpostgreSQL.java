@@ -30,11 +30,25 @@ public class jdbcpostgreSQL {
      System.out.println();
      
    //QUESTION 1
+   //Test a: Akron v Ohio
    Q1 answerQ1 = new Q1("Akron","Ohio",conn);
    System.out.println(answerQ1.toString());  
+   
+   //Test b: Akron v Alabama
    answerQ1.setEnemyTeam("Alabama");
    answerQ1.rebuildResults();
-   System.out.println(answerQ1.toString());  
+   System.out.println(answerQ1.toString());
+   
+   //Test c: Middle Tennessee v Alabama
+   answerQ1.setMyTeam("Middle Tennessee");
+   answerQ1.rebuildResults();
+   System.out.println(answerQ1.toString());
+   
+   //Test d: Middle Tennessee v Middle Tennessee
+   answerQ1.setEnemyTeam("Middle Tennessee");
+   answerQ1.rebuildResults();
+   System.out.println(answerQ1.toString());
+      
    //Q1 answerQ1b = new Q1("Akron","Alabama",conn);
    //System.out.println(answerQ1b.toString());
      
