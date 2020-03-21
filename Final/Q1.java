@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+//Calculates all victory chains at the smallest possible length
+//eg if the smallest length chain is 3, calculates ALL chains of length three
+//Setters and getters to set home and away teams, rebuildResults
+//Maximum chain length defaults to 4 but can be changed; can also print sql queries for troubleshooting
 public class Q1
 {	
 	private ArrayList<ArrayList<String>> results;
