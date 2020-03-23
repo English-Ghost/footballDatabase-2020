@@ -40,6 +40,13 @@ public class secondGui extends JFrame {
                                       "COUNT"
                                     };
 
+  static String[] questionChoices = {
+                                      "Question 1",
+                                      "Question 2",
+                                      "Question 3",
+                                      "Question 4"
+                                    };
+
   static String serverResponse = "NO CHANGES";
   static JPanel userEntryPan = new JPanel();
   static JLabel dropBoxLabel = new JLabel();
@@ -104,6 +111,9 @@ public class secondGui extends JFrame {
 
   static JFrame loginFrame;
 
+  static JFrame questFrame;
+
+
   protected static void popupLogin()
   {
     loginFrame = new JFrame("LOGIN");
@@ -162,9 +172,9 @@ public class secondGui extends JFrame {
     panelVals.gridy = 2;
     loginPanel.add(passwordBar, panelVals);
 
-    JButton connectButton = new JButton();
-    connectButton.setText("CONNECT");
-    connectButton.addActionListener(new ActionListener() {
+    JButton connectButtonDatabase = new JButton();
+    connectButtonDatabase.setText("<html>CONNECT<br>TO<br>DATABASE</html>");
+    connectButtonDatabase.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         loginFrame.dispose();
         popupDatabaseWindow();
@@ -172,13 +182,204 @@ public class secondGui extends JFrame {
     });
     panelVals.gridx = 1;
     panelVals.gridy = 3;
-    loginPanel.add(connectButton, panelVals);
+
+    loginPanel.add(connectButtonDatabase, panelVals);
+
+    JButton connectButtonQuestion = new JButton();
+    connectButtonQuestion.setText("<html>CONNECT<br>TO<br>QUESTIONS</html>");
+    connectButtonQuestion.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        loginFrame.dispose();
+        popupQuestionWindow();
+      }
+    });
+    panelVals.gridx = 1;
+    panelVals.gridy = 3;
+    panelVals.anchor = GridBagConstraints.EAST;
+
+    loginPanel.add(connectButtonQuestion, panelVals);
+
+    panelVals.anchor = GridBagConstraints.WEST;
 
     loginFrame.add(loginPanel, frameVals);
 
     loginFrame.pack();
     loginFrame.setVisible(true);
 
+  }
+
+  protected static void popupQuestionWindow()
+  {
+
+    questFrame = new JFrame("Question Window");
+    GridBagLayout gridLayout = new GridBagLayout();
+    questFrame.getContentPane().setBackground(new Color(0,0,0));
+    questFrame.getContentPane().setLayout(gridLayout);
+
+    // layout design of frame
+    GridBagConstraints frameVals = new GridBagConstraints();
+    frameVals.fill = GridBagConstraints.HORIZONTAL;
+    frameVals.anchor = GridBagConstraints.WEST;
+    frameVals.gridx = 0;
+    frameVals.gridy = 0;
+    frameVals.ipady = 10;
+    frameVals.weightx = .5;
+
+    // layout design of panels
+    GridBagConstraints panelVals = new GridBagConstraints();
+    panelVals.anchor = GridBagConstraints.WEST;
+    panelVals.gridx = 0;
+    panelVals.gridy = 0;
+
+    JPanel questionPanel = new JPanel();
+    questionPanel.setLayout(new GridBagLayout());
+
+    JLabel questionOneTeamOneLabel = new JLabel();
+    questionOneTeamOneLabel.setText("Team 1:");
+    panelVals.gridx = 1;
+    panelVals.gridy = 0;
+    questionPanel.add(questionOneTeamOneLabel, panelVals);
+
+    JLabel questionOneTeamTwoLabel = new JLabel();
+    questionOneTeamTwoLabel.setText("Team 2:");
+    panelVals.gridx = 2;
+    panelVals.gridy = 0;
+    questionPanel.add(questionOneTeamTwoLabel, panelVals);
+
+    JLabel questionOneVicChainLabel = new JLabel();
+    questionOneVicChainLabel.setText("Max victory chain length:");
+    panelVals.gridx = 3;
+    panelVals.gridy = 0;
+    questionPanel.add(questionOneVicChainLabel, panelVals);
+
+    JLabel questionOneLabel = new JLabel();
+    questionOneLabel.setText("Given 2 teams, create a victory chain");
+    panelVals.gridx = 0;
+    panelVals.gridy = 1;
+    questionPanel.add(questionOneLabel, panelVals);
+
+    JTextField questionOneTeamOne = new JTextField(20);
+    questionOneTeamOne.setText("");
+    panelVals.gridx = 1;
+    panelVals.gridy = 1;
+    questionPanel.add(questionOneTeamOne, panelVals);
+
+    JTextField questionOneTeamTwo = new JTextField(20);
+    questionOneTeamTwo.setText("");
+    panelVals.gridx = 2;
+    panelVals.gridy = 1;
+    questionPanel.add(questionOneTeamTwo, panelVals);
+
+    JTextField questionOneVicChain = new JTextField(20);
+    questionOneVicChain.setText("");
+    panelVals.gridx = 3;
+    panelVals.gridy = 1;
+    questionPanel.add(questionOneVicChain, panelVals);
+
+    JLabel questionTwoPlayerOneLabel = new JLabel();
+    questionTwoPlayerOneLabel.setText("Player 1:");
+    panelVals.gridx = 1;
+    panelVals.gridy = 2;
+    questionPanel.add(questionTwoPlayerOneLabel, panelVals);
+
+    JLabel questionTwoPlayerTwoLabel = new JLabel();
+    questionTwoPlayerTwoLabel.setText("Player 2:");
+    panelVals.gridx = 2;
+    panelVals.gridy = 2;
+    questionPanel.add(questionTwoPlayerTwoLabel, panelVals);
+
+    JLabel questionTwoLabel = new JLabel();
+    questionTwoLabel.setText("What is the shortest chain between 2 players");
+    panelVals.gridx = 0;
+    panelVals.gridy = 3;
+    questionPanel.add(questionTwoLabel, panelVals);
+
+    JTextField questionTwoPlayerOne = new JTextField(20);
+    questionTwoPlayerOne.setText("");
+    panelVals.gridx = 1;
+    panelVals.gridy = 3;
+    questionPanel.add(questionTwoPlayerOne, panelVals);
+
+    JTextField questionTwoPlayerTwo = new JTextField(20);
+    questionTwoPlayerTwo.setText("");
+    panelVals.gridx = 2;
+    panelVals.gridy = 3;
+    questionPanel.add(questionTwoPlayerTwo, panelVals);
+
+    JLabel questionThreeTeamLabel = new JLabel();
+    questionThreeTeamLabel.setText("Team:");
+    panelVals.gridx = 1;
+    panelVals.gridy = 4;
+    questionPanel.add(questionThreeTeamLabel, panelVals);
+
+    JLabel questionThreeLabel = new JLabel();
+    questionThreeLabel.setText("Rushing yards against a given team");
+    panelVals.gridx = 0;
+    panelVals.gridy = 5;
+    questionPanel.add(questionThreeLabel, panelVals);
+
+    JTextField questionThreeTeam = new JTextField(20);
+    questionThreeTeam.setText("");
+    panelVals.gridx = 1;
+    panelVals.gridy = 5;
+    questionPanel.add(questionThreeTeam, panelVals);
+
+    JLabel questionFourConfLabel = new JLabel();
+    questionFourConfLabel.setText("Conference:");
+    panelVals.gridx = 1;
+    panelVals.gridy = 6;
+    questionPanel.add(questionFourConfLabel, panelVals);
+
+    JLabel questionFourLabel = new JLabel();
+    questionFourLabel.setText("Average home field advantage of teams in a conference");
+    panelVals.gridx = 0;
+    panelVals.gridy = 7;
+    questionPanel.add(questionFourLabel, panelVals);
+
+    JTextField questionFourConf = new JTextField(20);
+    questionFourConf.setText("");
+    panelVals.gridx = 1;
+    panelVals.gridy = 7;
+    questionPanel.add(questionFourConf, panelVals);
+
+    questFrame.add(questionPanel, frameVals);
+
+    JPanel questionChoicePanel = new JPanel();
+    questionChoicePanel.setLayout(new GridBagLayout());
+
+    JComboBox<String> questChoice = new JComboBox<String>(questionChoices);
+    questChoice.setSelectedIndex(0);
+    panelVals.gridx = 0;
+    panelVals.gridy = 0;
+    questionChoicePanel.add(questChoice, panelVals);
+
+    JButton questChoiceButton = new JButton();
+    questChoiceButton.setText("<html>SELECT<br>QUESTION</html>");
+    questChoiceButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      }
+    });
+    panelVals.gridx = 1;
+    panelVals.gridy = 0;
+
+    questionChoicePanel.add(questChoiceButton, panelVals);
+
+    frameVals.gridx = 0;
+    frameVals.gridy = 1;
+    questFrame.add(questionChoicePanel, frameVals);
+
+    serverRespText.append(serverResponse);
+    serverRespText.setRows(4);
+    serverRespText.setColumns(30);
+    panelVals.gridx = 0;
+    panelVals.gridy = 0;
+    dataRespPan.add(serverRespText, panelVals);
+
+    frameVals.gridy = 2;
+    questFrame.add(dataRespPan, frameVals);
+
+    questFrame.pack();
+    questFrame.setVisible(true);
   }
 
   // creates the popup for the database window
