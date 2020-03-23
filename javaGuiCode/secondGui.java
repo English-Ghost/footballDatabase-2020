@@ -375,6 +375,19 @@ public class secondGui extends JFrame {
     panelVals.gridy = 0;
     dataRespPan.add(serverRespText, panelVals);
 
+    
+    // button to send output to a file
+    sendToFileBut.setText("<html> SEND <br> TO <br> FILE </html>");
+    sendToFileBut.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        serverResponse = "send to file button hit";
+        serverRespText.setText(serverResponse);
+      }
+    });
+    panelVals.gridx = 1;
+    panelVals.gridy = 0;
+    dataRespPan.add(sendToFileBut, panelVals);
+
     frameVals.gridy = 2;
     questFrame.add(dataRespPan, frameVals);
 
