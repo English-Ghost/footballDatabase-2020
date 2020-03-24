@@ -79,6 +79,7 @@ public class secondGui extends JFrame {
 	static String constraintBoxOption = "";
 	static JPanel requestPan = new JPanel();
 	static JButton requestButton = new JButton();
+	static JButton resetButton = new JButton();
 	static JPanel dataRespPan = new JPanel();
 	static JTextArea serverRespText = new JTextArea();
 	static JButton sendToFileBut = new JButton();
@@ -142,9 +143,11 @@ public class secondGui extends JFrame {
 	private static void buildWhereStatement(String mainTableChoice) {
 		// GET FIRST-CHOICE TABLE COLUMNS
 		WHEREStmt = "";
-		WHEREStmt += "WHERE ";
-		WHEREStmt += constraintBoxOption + " = " + filterTerm;
-
+		System.out.println(filterTerm);
+		if(filterTerm != "") {
+			WHEREStmt += "WHERE ";
+			WHEREStmt += constraintBoxOption + " = " + filterTerm;
+		}
 	}
 
 	private static void populateColumns(String baseTableOption) {
@@ -193,6 +196,7 @@ public class secondGui extends JFrame {
 		ResultSet result;
 		FROMStmt = "SELECT * FROM " + baseTableOption + " ";
 		sqlStatement += WHEREStmt;
+		System.out.println(sqlStatement);
 		try {
 			result = stmt.executeQuery(sqlStatement);
 			ResultSetMetaData metadata = result.getMetaData();
@@ -225,7 +229,16 @@ public class secondGui extends JFrame {
 	}
 
 	static JFrame loginFrame;
+	static void reset() {
+		choiceFrame.dispose();
+		try {
+			Runtime.getRuntime().exec("java -jar secondGui.jar");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+	}
 	protected static void popupLogin() {
 		loginFrame = new JFrame("LOGIN");
 		GridBagLayout gridLayout = new GridBagLayout();
@@ -826,7 +839,12 @@ public class secondGui extends JFrame {
 		requestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filterTerm = searchText.getText();
-				buildWhereStatement(baseTableOption);
+				System.out.println(searchText.getText());
+				System.out.println(filterTerm);
+				if(filterTerm.length() > 0) {
+					buildWhereStatement(baseTableOption);
+				}
+				
 				executeQuery();
 				if (numRows > 5) {
 					serverRespText.setText("Too much data please output to file to see");
@@ -839,7 +857,15 @@ public class secondGui extends JFrame {
 		panelVals.gridx = 0;
 		panelVals.gridy = 0;
 		requestPan.add(requestButton, panelVals);
-
+		resetButton.setText("Reset");
+	    resetButton.addActionListener(new ActionListener() {
+	      public void actionPerformed(ActionEvent e) {
+	        reset();
+	      }
+	    });
+	    panelVals.gridx = 1;
+	    panelVals.gridy = 0;
+	    requestPan.add(resetButton, panelVals);
 		// add the fifth panel to the frame
 		frameVals.gridy = 4;
 		choiceFrame.add(requestPan, frameVals);
